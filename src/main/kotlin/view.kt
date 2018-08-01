@@ -16,16 +16,14 @@ class View(val can: Canvas) : Layout(can.getBoundingClientRect()) {
         fillText(tick.toString(), 2, 10, textlength)
     }
 
-    //TODO use actual sizes from super.w and super.h
-    val W = 800
-    val H = 600
+    //divisors of 720: 1,2,3,4,5,6,8,9,10,12,15,16,18,20,24,30,36,40
     val RESOLUTION = 20
 
     fun drawWaves(i: Int) {
         context.beginPath()
         val t = i * Wave.VELOCITY
-        for (y in 0..H step RESOLUTION) {
-            for (x in 0..W step RESOLUTION) {
+        for (y in 0..super.h step RESOLUTION) {
+            for (x in 0..super.w step RESOLUTION) {
                 drawPixel(x, y, t)
             }
         }
@@ -45,7 +43,7 @@ class View(val can: Canvas) : Layout(can.getBoundingClientRect()) {
 
     fun clean() {
         context.fillStyle = Style.BACKGROUND_COLOR
-        context.fillRect(0, 0, W, H)
+        context.fillRect(0, 0, super.w, super.h)
     }
 
     fun render() {
