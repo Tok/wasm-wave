@@ -1,7 +1,6 @@
 package data
 
 import util.MathUtil
-import kotlinx.interop.wasm.math.*
 
 /**
  * Originally transpiled and rearranged from: https://github.com/Tok/Erwin/tree/master/src/main/java/erwin
@@ -11,12 +10,11 @@ import kotlinx.interop.wasm.math.*
 data class Complex(val re: Double, val im: Double = 0.0) {
     constructor(real: Int, imaginary: Int = 0) : this(real.toDouble(), imaginary.toDouble())
 
-    val magnitude: Double = Math.sqrt(addSquares(re, im)).toDouble()
+    val magnitude: Double = MathUtil.sqrt(addSquares(re, im)).toDouble()
     val mag: Double = magnitude
     val magnitude2: Double = addSquares(re, im)
-    val phase = Math.atan2(im.toDouble(), re.toDouble())
+    val phase = MathUtil.atan2(im, re)
     val modulus = magnitude
-
     fun copyWithNewMagnitude(mag: Double) = Complex.fromMagnitudeAndPhase(mag, this.phase)
 
     fun negate() = Complex(-re, -im)
@@ -59,8 +57,8 @@ data class Complex(val re: Double, val im: Double = 0.0) {
         fun valueOf(magnitude: Double, phase: Double) = fromMagnitudeAndPhase(magnitude, phase)
 
         fun fromMagnitudeAndPhase(magnitude: Double, phase: Double): Complex {
-            val im = magnitude * Math.cos(phase).toDouble()
-            val re = magnitude * Math.sin(phase).toDouble()
+            val im = magnitude * MathUtil.cos(phase)
+            val re = magnitude * MathUtil.sin(phase)
             return Complex(im, re)
         }
     }

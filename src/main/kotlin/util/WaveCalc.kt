@@ -4,7 +4,6 @@ import config.Constants
 import config.Wave
 import data.Complex
 import data.Pos
-import kotlinx.interop.wasm.math.*
 import util.MathUtil
 
 /**
@@ -21,8 +20,8 @@ object WaveCalc {
                      t: Double): Complex {
         val distance = calcDistance(xFrom, yFrom, xTo, yTo)
         val standing = (Wave.frequency * distance / Wave.mass)
-        val phase = (t + standing) % Constants.tau
-        val magnitude = calcIntensity(distance, xFrom, yFrom)
+        val phase: Double = (t + standing) % Constants.tau
+        val magnitude: Double = calcIntensity(distance, xFrom, yFrom)
         return Complex.valueOf(magnitude, phase)
     }
 
@@ -31,11 +30,11 @@ object WaveCalc {
 
     private fun calcIntensity(distance: Double, x: Double, y: Double): Double {
         val dividend = Wave.intensity * (x + y)
-        val divisor = (MathUtil.square(distance) * Constants.tau)
+        val divisor = distance * distance * Constants.tau
         return minOf(1.0, dividend / divisor).toDouble()
     }
 
     private fun calcDistance(xFrom: Double, yFrom: Double, xTo: Double, yTo: Double): Double {
-        return Math.sqrt(addSquares(xFrom - xTo, yFrom - yTo).toDouble()).toDouble()
+        return MathUtil.sqrt(addSquares(xFrom - xTo, yFrom - yTo))
     }
 }

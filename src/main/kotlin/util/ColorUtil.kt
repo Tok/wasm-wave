@@ -2,7 +2,7 @@ package util
 
 import config.Constants
 import data.Complex
-import kotlinx.interop.wasm.math.Math
+import util.MathUtil
 
 /*
  * Recycled from https://github.com/Tok/Zir-Watchface/blob/master/Wearable/src/main/kotlin/zir/teq/wearable/watchface/util/ColorUtil.kt
@@ -22,7 +22,7 @@ object ColorUtil {
     fun getColor(c: Complex): String = getColorFromMagnitudeAndPhase(c.magnitude.toDouble(), c.phase)
     private fun getColorFromMagnitudeAndPhase(magnitude: Double, phase: Double): String {
         val p = normalizePhase(phase) * 6.0 / Constants.tau
-        val range = Math.min(5.0, Math.max(0.0, p)).toInt()
+        val range = MathUtil.min(5.0, MathUtil.max(0.0, p)).toInt()
         val fraction = p - range
         val rgbValues = fullSpectrum(range, fraction)
         val mag = magnitude * MAX_RGB.toInt()
