@@ -14,14 +14,14 @@ object ColorUtil {
     val WHITE = "#ffffff"
 
     private fun normalizePhase(phase: Double) = when {
-        phase < 0.0 -> phase + Constants.TAU
-        phase > Constants.TAU -> phase - Constants.TAU
+        phase < 0.0 -> phase + Constants.tau
+        phase > Constants.tau -> phase - Constants.tau
         else -> phase
     }
 
     fun getColor(c: Complex): String = getColorFromMagnitudeAndPhase(c.magnitude.toDouble(), c.phase)
     private fun getColorFromMagnitudeAndPhase(magnitude: Double, phase: Double): String {
-        val p = normalizePhase(phase) * 6.0 / Constants.TAU
+        val p = normalizePhase(phase) * 6.0 / Constants.tau
         val range = Math.min(5.0, Math.max(0.0, p)).toInt()
         val fraction = p - range
         val rgbValues = fullSpectrum(range, fraction)

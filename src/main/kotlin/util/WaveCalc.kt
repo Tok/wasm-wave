@@ -13,23 +13,25 @@ import util.MathUtil
  * In: https://github.com/Tok/Zir-Watchface/blob/master/Wearable/src/main/kotlin/zir/teq/wearable/watchface/util/WaveCalc.kt
  */
 object WaveCalc {
-    fun calc(from: Pos, to: Pos, t: Double, frequency: Double, mass: Double) =
-            calc(from.xx(), from.yy(), to.xx(), to.yy(), t, frequency, mass)
+    fun calc(from: Pos, to: Pos, t: Double) =
+            calc(from.xx(), from.yy(), to.xx(), to.yy(), t)
 
-    private fun calc(xFrom: Double, yFrom: Double, xTo: Double, yTo: Double,
-             t: Double, frequency: Double, mass: Double): Complex {
+    private fun calc(xFrom: Double, yFrom: Double,
+                     xTo: Double, yTo: Double,
+                     t: Double): Complex {
         val distance = calcDistance(xFrom, yFrom, xTo, yTo)
-        val phase = (t + (frequency * distance / mass)) % Constants.TAU
-        val mag = calcIntensity(distance, xFrom, yFrom)
-        return Complex.valueOf(mag, phase)
+        val standing = (Wave.frequency * distance / Wave.mass)
+        val phase = (t + standing) % Constants.tau
+        val magnitude = calcIntensity(distance, xFrom, yFrom)
+        return Complex.valueOf(magnitude, phase)
     }
 
     private fun addSquares(first: Double, second: Double): Double =
             (first * first) + (second * second)
 
     private fun calcIntensity(distance: Double, x: Double, y: Double): Double {
-        val dividend = Wave.INTENSITY * (x + y)
-        val divisor = (MathUtil.square(distance) * Constants.TAU)
+        val dividend = Wave.intensity * (x + y)
+        val divisor = (MathUtil.square(distance) * Constants.tau)
         return minOf(1.0, dividend / divisor).toDouble()
     }
 

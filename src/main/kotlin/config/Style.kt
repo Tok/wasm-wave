@@ -1,7 +1,9 @@
 package config
 
 object Style {
-    val BACKGROUND_COLOR = "#000000"
-    val FONT_COLOR = "#ffffff"
-    val FONT = "18px monospace"
+    //divisors of 720: 1,2,3,4,5,6,8,9,10,12,15,16,18,20,24,30,36,40
+    val resolution = 20
+    val backgroundColor = "#000000"
+    val fontColor = "#ffffff"
+    val font = "18px monospace" //TODO use
 }
