@@ -12,9 +12,13 @@
 <canvas id="canvas" width="720" height="720"></canvas>
 <script wasm="wave.wasm" src="wave.wasm.js"></script>
 <script>
-    konan.libraries.push({ "imported_tick" : function(msg) {
-        //console.log("JS tick... " + msg);
-    }})
+    var startMs = new Date().getTime();
+    konan.libraries.push({ "imported_log_tick" : function(tick) {
+        console.log("JS tick: " + tick);
+    }});
+    konan.libraries.push({ "imported_ms_since_start" : function() {
+        return new Date().getTime() - startMs;;
+    }});
 </script>
 </body>
 </html>

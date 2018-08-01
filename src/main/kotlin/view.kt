@@ -10,10 +10,13 @@ import util.WaveCalc
 class View(val can: Canvas) : Layout(can.getBoundingClientRect()) {
     val context = can.getContext("2d")
 
-    fun printTick(tick: Int) = with(context) {
+    private fun print(text: String, topOffset: Int) = with(context) {
         fillStyle = Style.fontColor
-        fillText(tick.toString(), 2, 10, 50)
+        fillText(text, 2, topOffset, 100)
     }
+
+    fun printFps(fps: Int) = print("FPS: $fps", 10)
+    fun printTick(tick: Int) = print("Tick: $tick", 20)
 
     fun drawWaves(i: Int) {
         context.beginPath()
@@ -42,8 +45,8 @@ class View(val can: Canvas) : Layout(can.getBoundingClientRect()) {
 
     fun render() {
         //clear()
-        val tick = Model.n
-        drawWaves(tick)
-        printTick(tick)
+        drawWaves(Model.tick)
+        printFps(Model.calcFps())
+        printTick(Model.tick)
     }
 }
