@@ -1,6 +1,7 @@
 # WASM Wave
 
-Simple wave animation in webassemby, transpiled from Kotlin.
+WebAssembly Wave Animation transpiled from Kotlin:
+[https://tok.github.io/wasm-wave/web/index.html](https://tok.github.io/wasm-wave/web/index.html)
 
              |
            .-+-.             .---.             .-
@@ -17,7 +18,7 @@ The code is mostly based on the [JetBrains html5Canvas Example](https://github.c
 See build.gradle 
 * compiles the sources from *src/main/kotlin/*
 * integrates the kotlin libraries from */lib*
-* creates **wave.wasm** webassembly binary
+* creates **wave.wasm** WebAssembly binary
 * creates **wave.wasm.js** bindings
 * copies the files from the buildpath to */web*
 
