@@ -1,0 +1,47 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven {
+            url  "https://dl.bintray.com/jetbrains/kotlin-native-dependencies"
+        }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-native-gradle-plugin:$kotlin_native_version"
+    }
+}
+
+apply plugin: "org.jetbrains.kotlin.konan"
+
+konan.targets = ['wasm32']
+
+konanArtifacts {
+    /*
+    // Build foo.klib
+    library('foo') {
+        srcDir 'src/foo/kotlin' // Use custom source path
+    }
+    */
+
+    program('wave') {
+        srcDir 'src/main/kotlin'
+        enableOptimizations true
+        libraries {
+            useRepo 'klib'
+            klibs 'dom', 'math'
+        }
+    }
+}
+
+task copyWasm(type: Copy) {
+    from "$buildDir/konan/bin/wasm32/wave.wasm",
+            "$buildDir/konan/bin/wasm32/wave.wasm.js"
+    into "web"
+}
+
+build {
+    dependsOn copyWasm
+}

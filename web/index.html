@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="wave.css">
+    <title>WASM Wave</title>
+</head>
+<body>
+<canvas id="canvas" width="800" height="600">
+</canvas>
+<script wasm="wave.wasm" src="wave.wasm.js"></script>
+<script>
+    konan.libraries.push({ "imported_tick" : function(msg) {
+        //console.log("JS tick... " + msg);
+    }})
+</script>
+</body>
+</html>
