@@ -16,6 +16,14 @@ object Model {
         }
         return currentFps
     }
+
+    fun currentTime(): String {
+        fun pad(t: Int) = t.toString().padStart(2, '0')
+        val hh = pad(hours())
+        val mm = pad(minutes())
+        val ss = pad(seconds())
+        return "$hh:$mm:$ss"
+    }
 }
 
 @SymbolName("imported_log_tick")
@@ -23,3 +31,12 @@ external public fun logTick(tick: Int)
 
 @SymbolName("imported_ms_since_start")
 external public fun msSinceStart(): Int
+
+@SymbolName("imported_hours")
+external public fun hours(): Int
+
+@SymbolName("imported_minutes")
+external public fun minutes(): Int
+
+@SymbolName("imported_seconds")
+external public fun seconds(): Int

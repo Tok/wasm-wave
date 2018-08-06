@@ -17,7 +17,16 @@
         console.log("JS tick: " + tick);
     }});
     konan.libraries.push({ "imported_ms_since_start" : function() {
-        return new Date().getTime() - startMs;;
+        return new Date().getTime() - startMs;
+    }});
+    konan.libraries.push({ "imported_hours" : function() {
+        return new Date().getHours();
+    }});
+    konan.libraries.push({ "imported_minutes" : function() {
+        return new Date().getMinutes();
+    }});
+    konan.libraries.push({ "imported_seconds" : function() {
+        return new Date().getSeconds();
     }});
 </script>
 </body>

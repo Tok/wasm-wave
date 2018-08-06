@@ -15,8 +15,9 @@ class View(val can: Canvas) : Layout(can.getBoundingClientRect()) {
         fillText(text, 2, topOffset, 100)
     }
 
-    fun printFps(fps: Int) = print("FPS: $fps", 10)
+    fun printTime(time: String) = print(time, 10)
     fun printTick(tick: Int) = print("Tick: $tick", 20)
+    fun printFps(fps: Int) = print("FPS: $fps", 30)
 
     fun drawWaves(i: Int) {
         context.beginPath()
@@ -46,7 +47,8 @@ class View(val can: Canvas) : Layout(can.getBoundingClientRect()) {
     fun render() {
         //clear()
         drawWaves(Model.tick)
-        printFps(Model.calcFps())
+        printTime(Model.currentTime())
         printTick(Model.tick)
+        printFps(Model.calcFps())
     }
 }
