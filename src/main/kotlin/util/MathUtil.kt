@@ -5,8 +5,8 @@ import util.inaccurate.ShittyTrig
 import kotlinx.interop.wasm.math.Math
 
 object MathUtil {
-    val useImpreciseMath = false
-    val useImpreciseTrig = true //FIXME is slower
+    val useImpreciseMath = true
+    val useImpreciseTrig = true
 
     fun abs(n: Double): Double =
             if (n >= 0.0) n else -n

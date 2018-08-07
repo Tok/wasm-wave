@@ -3,22 +3,15 @@ package util.inaccurate
 import kotlinx.interop.wasm.math.Math
 
 object ShittyMath {
-    val sqrtIterations = 20 //tune this...
+    val sqrtIterations = 10 //tune this...
 
-    fun sqrt(n: Double): Double {
-        tailrec fun sqrt0(i: Int, min: Double, max: Double): Double {
-            val avg = (min + max) / 2.0
-            if (i >= sqrtIterations) return avg
-            else {
-                val pow = avg * avg
-                return when {
-                    pow > n -> sqrt0(i + 1, min, avg)
-                    pow < n -> sqrt0(i + 1, avg, max)
-                    else -> avg
-                }
-            }
+    //http://mathonweb.com/help_ebook/html/algorithms.htm#sqrt
+    fun sqrt(x: Double): Double {
+        tailrec fun sqrt0(i: Int, guess: Double): Double {
+            return if (i >= sqrtIterations) guess
+            else sqrt0(i + 1, (guess / 2.0) + (x / (2.0 * guess)))
         }
-        return sqrt0(0, 0.0, n)
+        return sqrt0(0, x / 2.0)
     }
 
     fun pow(a: Double, b: Double): Double {
