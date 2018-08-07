@@ -22,9 +22,9 @@ object ShittyMath {
     }
 
     fun fact(n: Double): Double {
-        tailrec fun shittyFact0(i: Int, ret: Double): Double =
+        tailrec fun fact0(i: Int, ret: Double): Double =
                 if (i > n) ret
-                else shittyFact0(i + 1, ret * i.toDouble())
-        return shittyFact0(1, 1.0)
+                else fact0(i + 1, ret * i.toDouble())
+        return fact0(1, 1.0)
     }
 }
