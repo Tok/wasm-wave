@@ -19,8 +19,8 @@ object ColorUtil {
         else -> phase
     }
 
-    fun getColor(c: Complex): String = getColorFromMagnitudeAndPhase(c.magnitude.toDouble(), c.phase)
-    private fun getColorFromMagnitudeAndPhase(magnitude: Double, phase: Double): String {
+    fun getColor(c: Complex): String = getColorFromMagAndPhase(c.magnitude.toDouble(), c.phase)
+    private fun getColorFromMagAndPhase(magnitude: Double, phase: Double): String {
         val p = normalizePhase(phase) * 6.0 / Constants.tau
         val range = MathUtil.min(5.0, MathUtil.max(0.0, p)).toInt()
         val fraction = p - range

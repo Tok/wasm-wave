@@ -14,7 +14,6 @@ import util.MathUtil
 object WaveCalc {
     fun calc(from: Pos, to: Pos, t: Double) =
             calc(from.xx(), from.yy(), to.xx(), to.yy(), t)
-
     private fun calc(xFrom: Double, yFrom: Double,
                      xTo: Double, yTo: Double,
                      t: Double): Complex {
@@ -23,6 +22,18 @@ object WaveCalc {
         val phase: Double = (t + standing) % Constants.tau
         val magnitude: Double = calcIntensity(distance, xFrom, yFrom)
         return Complex.valueOf(magnitude, phase)
+    }
+
+    fun calcPair(from: Pos, to: Pos, t: Double) =
+            calcPair(from.xx(), from.yy(), to.xx(), to.yy(), t)
+    private fun calcPair(xFrom: Double, yFrom: Double,
+                     xTo: Double, yTo: Double,
+                     t: Double): Pair<Double, Double> {
+        val distance = calcDistance(xFrom, yFrom, xTo, yTo)
+        val standing = (Wave.frequency * distance / Wave.mass)
+        val phase: Double = (t + standing) % Constants.tau
+        val magnitude: Double = calcIntensity(distance, xFrom, yFrom)
+        return Pair(magnitude, phase)
     }
 
     private fun addSquares(first: Double, second: Double): Double =
