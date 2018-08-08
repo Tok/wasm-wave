@@ -31,8 +31,8 @@ class View(val can: Canvas) : Layout(can.getBoundingClientRect()) {
 
     fun drawPos() {
         context.fillStyle = ColorUtil.WHITE
-        val r = 3
-        val w = 2 * r
+        val w = Style.particleW
+        val r = Style.particleW / 2
         Model.particles.forEach {
             context.fillRect(it.x() - r, it.y() - r, w, w)
         }
@@ -40,13 +40,11 @@ class View(val can: Canvas) : Layout(can.getBoundingClientRect()) {
 
     fun drawPixel(x: Int, y: Int, t: Double) {
         val pos = Pos(x, y)
-
         val waves: List<Complex> = Model.particles.map {
             WaveCalc.calc(pos, it.pos, t.toDouble())
         }
         val waveSum = waves.fold(Complex.ZERO) { sum, el -> sum + el }
         val wave = Complex.valueOf(waveSum.magnitude / waves.count(), waveSum.phase)
-
         context.fillStyle = ColorUtil.getColor(wave)
         context.fillRect(x, y, Style.resolution, Style.resolution)
     }
@@ -57,7 +55,7 @@ class View(val can: Canvas) : Layout(can.getBoundingClientRect()) {
     }
 
     fun render() {
-        Model.maybeInitialize(w, hCenter)
+        Model.maybeInitialize(w, h)
 
         //clear()
         drawWaves(Model.tick)

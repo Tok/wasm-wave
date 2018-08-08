@@ -1,3 +1,4 @@
+import config.Style
 import data.Particle
 import data.Pos
 
@@ -9,17 +10,26 @@ object Model {
     }
 
     val particles = mutableListOf<Particle>()
+    var w = 720
+    var h = 720
+    var center = Pos(w / 2, h / 2)
 
-    fun maybeInitialize(w: Int, hCenter: Int) {
+    fun maybeInitialize(w: Int, h: Int) {
+        fun randomPos() = Pos.random(rand(), rand(), w, h)
         if (!isInitialized) {
-            particles.add(Particle(Pos(w / 3, hCenter)))
-            particles.add(Particle(Pos(w / 2, hCenter)))
-            particles.add(Particle(Pos(w * 2 / 3, hCenter)))
+            this.w = w
+            this.h = h
+            this.center = Pos(w / 2, h / 2)
+            (1..Style.particleCount).forEach {
+                particles.add(Particle(center))
+            }
             isInitialized = true
         }
     }
 
-    fun move() = particles.forEach { it.move(rand(), rand(), rand()) }
+    fun move() = particles.forEach {
+        it.move(rand(), rand(), rand(), w, h, center)
+    }
 
     var tick = 0
     private var lastTs = 0
