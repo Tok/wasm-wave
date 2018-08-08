@@ -25,6 +25,14 @@ object Model {
             }
             isInitialized = true
         }
+        /* TODO replace location.reload();
+        if (this.w != w || this.h != h) {
+            this.w = w
+            this.h = h
+            this.center = Pos(w / 2, h / 2)
+            println("Size changed...")
+        }
+        */
     }
 
     fun move() = particles.forEach {

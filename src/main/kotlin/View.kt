@@ -22,8 +22,8 @@ class View(val can: Canvas) : Layout(can.getBoundingClientRect()) {
     fun drawWaves(i: Int) {
         context.beginPath()
         val t = i * Wave.velocity
-        for (y in 0..super.h step Style.resolution) {
-            for (x in 0..super.w step Style.resolution) {
+        for (y in 0..Model.h step Style.resolution) {
+            for (x in 0..Model.w step Style.resolution) {
                 drawPixel(x, y, t)
             }
         }
@@ -51,7 +51,7 @@ class View(val can: Canvas) : Layout(can.getBoundingClientRect()) {
 
     fun clear() = with(context) {
         fillStyle = Style.backgroundColor
-        fillRect(0, 0, super.w, super.h)
+        fillRect(0, 0, w, h)
     }
 
     fun render() {

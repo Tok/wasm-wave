@@ -9,9 +9,17 @@
     <title>WASM Wave</title>
 </head>
 <body>
-<canvas id="canvas" width="720" height="720"></canvas>
+<canvas id="canvas"></canvas>
 <script wasm="wave.wasm" src="wave.wasm.js"></script>
 <script>
+    function resetSize() {
+        var can = document.getElementById("canvas");
+        can.width = window.innerWidth;
+        can.height = window.innerHeight;
+    }
+    window.addEventListener('load', resetSize(), false);
+    window.onresize = function() { location.reload(); }
+
     var startMs = new Date().getTime();
     konan.libraries.push({ "imported_log_tick" : function(tick) {
         console.log("JS tick: " + tick);
