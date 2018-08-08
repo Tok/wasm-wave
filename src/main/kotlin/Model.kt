@@ -8,23 +8,18 @@ object Model {
         move()
     }
 
-    val first = Particle.create("first")
-    val second = Particle.create("second")
-    val third = Particle.create("third")
+    val particles = mutableListOf<Particle>()
+
     fun maybeInitialize(w: Int, hCenter: Int) {
         if (!isInitialized) {
-            first.moveTo(w / 3, hCenter)
-            second.moveTo((w * 2) / 3, hCenter)
-            third.moveTo(w / 2, hCenter)
+            particles.add(Particle("first", Pos(w / 3, hCenter)))
+            particles.add(Particle("second", Pos(w / 2, hCenter)))
+            particles.add(Particle("third", Pos(w * 2 / 3, hCenter)))
             isInitialized = true
         }
     }
 
-    fun move() {
-        first.move(rand(), rand())
-        second.move(rand(), rand())
-        third.move(rand(), rand())
-    }
+    fun move() = particles.forEach { it.move(rand(), rand()) }
 
     var tick = 0
     private var lastTs = 0
