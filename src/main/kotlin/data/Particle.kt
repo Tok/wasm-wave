@@ -1,34 +1,32 @@
 package data
 
-import util.MathUtil
+import config.Constants
+import data.Complex
 import data.Pos
+import util.MathUtil
 
-data class Particle(val name: String, var pos: Pos) {
+data class Particle(var pos: Pos = Pos.default,
+                    var velocity: Complex = Complex.ZERO,
+                    var acceleration: Complex = Complex.ZERO) {
     fun x() = pos.x
     fun y() = pos.y
 
-    fun move(rand1: Double, rand2: Double) = with(pos) {
-        pos = Pos(
-                when {
-                    rand1 < 0.1 -> x + 1
-                    rand1 < 0.2 -> x - 1
-                    else -> x
-                },
-                when {
-                    rand2 < 0.1 -> y + 1
-                    rand2 < 0.2 -> y - 1
-                    else -> y
-                }
-        )
+    fun move(rand1: Double, rand2: Double, rand3: Double) = with(pos) {
+        if (rand1 < 0.1) {
+            val mag = rand2
+            val phase = rand3 * Constants.tau
+            acceleration = Complex.fromMagnitudeAndPhase(mag, phase)
+        }
+        val velocity = velocity + acceleration
+        val speed = 5.0
+        val newX = x + (speed * velocity.im).toInt()
+        val newY = y + (speed * velocity.re).toInt()
+        jumpTo(newX, newY)
     }
 
-    fun moveTo(newX: Int, newY: Int) {
+    fun jumpTo(newX: Int, newY: Int) {
         pos = Pos(newX, newY)
     }
 
-    override fun toString(): String = name + ": " + pos.toString()
-
-    companion object {
-        fun create(name: String) = Particle(name, Pos.default)
-    }
+    override fun toString(): String = pos.toString() + " -> " + velocity
 }

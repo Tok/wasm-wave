@@ -12,14 +12,14 @@ object Model {
 
     fun maybeInitialize(w: Int, hCenter: Int) {
         if (!isInitialized) {
-            particles.add(Particle("first", Pos(w / 3, hCenter)))
-            particles.add(Particle("second", Pos(w / 2, hCenter)))
-            particles.add(Particle("third", Pos(w * 2 / 3, hCenter)))
+            particles.add(Particle(Pos(w / 3, hCenter)))
+            particles.add(Particle(Pos(w / 2, hCenter)))
+            particles.add(Particle(Pos(w * 2 / 3, hCenter)))
             isInitialized = true
         }
     }
 
-    fun move() = particles.forEach { it.move(rand(), rand()) }
+    fun move() = particles.forEach { it.move(rand(), rand(), rand()) }
 
     var tick = 0
     private var lastTs = 0
