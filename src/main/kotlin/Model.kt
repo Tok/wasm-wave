@@ -8,22 +8,22 @@ object Model {
         move()
     }
 
-    var first = Particle.create("first")
-    var second = Particle.create("second")
-    var third = Particle.create("third")
+    val first = Particle.create("first")
+    val second = Particle.create("second")
+    val third = Particle.create("third")
     fun maybeInitialize(w: Int, hCenter: Int) {
         if (!isInitialized) {
-            first = first.moveTo(w / 3, hCenter)
-            second = second.moveTo((w * 2) / 3, hCenter)
-            third = third.moveTo(w / 2, hCenter)
+            first.moveTo(w / 3, hCenter)
+            second.moveTo((w * 2) / 3, hCenter)
+            third.moveTo(w / 2, hCenter)
             isInitialized = true
         }
     }
 
     fun move() {
-        first = first.move(rand(), rand())
-        second = second.move(rand(), rand())
-        third = third.move(rand(), rand())
+        first.move(rand(), rand())
+        second.move(rand(), rand())
+        third.move(rand(), rand())
     }
 
     var tick = 0

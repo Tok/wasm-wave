@@ -18,9 +18,9 @@ class View(val can: Canvas) : Layout(can.getBoundingClientRect()) {
     fun printTime(time: String) = print(time, 10)
     fun printTick(tick: Int) = print("Tick: $tick", 20)
     fun printFps(fps: Int) = print("FPS: $fps", 30)
-    fun printPos1() = print("Pos 1: ${Model.first}", 40)
-    fun printPos2() = print("Pos 2: ${Model.second}", 50)
-    fun printPos3() = print("Pos 3: ${Model.third}", 60)
+    fun printPos1() = print("${Model.first}", 40)
+    fun printPos2() = print("${Model.second}", 50)
+    fun printPos3() = print("${Model.third}", 60)
 
     fun drawWaves(i: Int) {
         context.beginPath()
@@ -36,9 +36,9 @@ class View(val can: Canvas) : Layout(can.getBoundingClientRect()) {
         context.fillStyle = ColorUtil.WHITE
         val r = 3
         val w = 2 * r
-        context.fillRect(Model.first.x - r, Model.first.y - r, w, w)
-        context.fillRect(Model.second.x - r, Model.second.y - r, w, w)
-        context.fillRect(Model.third.x - r, Model.third.y - r, w, w)
+        context.fillRect(Model.first.x() - r, Model.first.y() - r, w, w)
+        context.fillRect(Model.second.x() - r, Model.second.y() - r, w, w)
+        context.fillRect(Model.third.x() - r, Model.third.y() - r, w, w)
     }
 
     fun drawPixel(x: Int, y: Int, t: Double) {
