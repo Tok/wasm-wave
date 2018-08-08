@@ -18,6 +18,8 @@ class View(val can: Canvas) : Layout(can.getBoundingClientRect()) {
     fun printTime(time: String) = print(time, 10)
     fun printTick(tick: Int) = print("Tick: $tick", 20)
     fun printFps(fps: Int) = print("FPS: $fps", 30)
+    fun printPos1() = print("Pos 1: ${Model.first}", 40)
+    fun printPos2() = print("Pos 2: ${Model.second}", 50)
 
     fun drawWaves(i: Int) {
         context.beginPath()
@@ -29,10 +31,18 @@ class View(val can: Canvas) : Layout(can.getBoundingClientRect()) {
         }
     }
 
+    fun drawPos() {
+        context.fillStyle = ColorUtil.WHITE
+        val r = 3
+        val w = 2 * r
+        context.fillRect(Model.first.x - r, Model.first.y - r, w, w)
+        context.fillRect(Model.second.x - r, Model.second.y - r, w, w)
+    }
+
     fun drawPixel(x: Int, y: Int, t: Double) {
         val pos = Pos(x, y)
-        val firstWave = WaveCalc.calc(pos, first, t.toDouble())
-        val secondWave = WaveCalc.calc(pos, second, t.toDouble())
+        val firstWave = WaveCalc.calc(pos, Model.first, t.toDouble())
+        val secondWave = WaveCalc.calc(pos, Model.second, t.toDouble())
         val waveSum = firstWave + secondWave
         val wave = Complex.valueOf(waveSum.magnitude * 0.5, waveSum.phase)
         context.fillStyle = ColorUtil.getColor(wave)
@@ -45,10 +55,15 @@ class View(val can: Canvas) : Layout(can.getBoundingClientRect()) {
     }
 
     fun render() {
+        Model.maybeInitialize(w, hCenter)
+
         //clear()
         drawWaves(Model.tick)
+        drawPos()
         printTime(Model.currentTime())
         printTick(Model.tick)
         printFps(Model.calcFps())
+        printPos1()
+        printPos2()
     }
 }
