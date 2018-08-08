@@ -1,3 +1,4 @@
+import data.Particle
 import data.Pos
 
 object Model {
@@ -7,14 +8,14 @@ object Model {
         move()
     }
 
-    var first = Pos.default
-    var second = Pos.default
-    var third = Pos.default
+    var first = Particle.create("first")
+    var second = Particle.create("second")
+    var third = Particle.create("third")
     fun maybeInitialize(w: Int, hCenter: Int) {
         if (!isInitialized) {
-            first = Pos(w / 3, hCenter)
-            second = Pos((w * 2) / 3, hCenter)
-            third = Pos(w / 2, hCenter)
+            first = first.moveTo(w / 3, hCenter)
+            second = second.moveTo((w * 2) / 3, hCenter)
+            third = third.moveTo(w / 2, hCenter)
             isInitialized = true
         }
     }

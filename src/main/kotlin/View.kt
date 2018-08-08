@@ -43,9 +43,9 @@ class View(val can: Canvas) : Layout(can.getBoundingClientRect()) {
 
     fun drawPixel(x: Int, y: Int, t: Double) {
         val pos = Pos(x, y)
-        val firstWave = WaveCalc.calc(pos, Model.first, t.toDouble())
-        val secondWave = WaveCalc.calc(pos, Model.second, t.toDouble())
-        val thirdWave = WaveCalc.calc(pos, Model.third, t.toDouble())
+        val firstWave = WaveCalc.calc(pos, Model.first.pos, t.toDouble())
+        val secondWave = WaveCalc.calc(pos, Model.second.pos, t.toDouble())
+        val thirdWave = WaveCalc.calc(pos, Model.third.pos, t.toDouble())
         val waveSum = firstWave + secondWave + thirdWave
         val wave = Complex.valueOf(waveSum.magnitude / 3, waveSum.phase)
         context.fillStyle = ColorUtil.getColor(wave)
