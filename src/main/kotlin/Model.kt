@@ -9,10 +9,12 @@ object Model {
 
     var first = Pos.default
     var second = Pos.default
+    var third = Pos.default
     fun maybeInitialize(w: Int, hCenter: Int) {
         if (!isInitialized) {
             first = Pos(w / 3, hCenter)
             second = Pos((w * 2) / 3, hCenter)
+            third = Pos(w / 2, hCenter)
             isInitialized = true
         }
     }
@@ -20,6 +22,7 @@ object Model {
     fun move() {
         first = first.move(rand(), rand())
         second = second.move(rand(), rand())
+        third = third.move(rand(), rand())
     }
 
     var tick = 0
