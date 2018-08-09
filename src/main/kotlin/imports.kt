@@ -21,3 +21,12 @@ external public fun particleCount(): Int
 
 @SymbolName("imported_pixels_per_side")
 external public fun pixelsPerSide(): Int
+
+@SymbolName("imported_frequency")
+external public fun frequency(): Double
+
+@SymbolName("imported_velocity")
+external public fun velocity(): Double
+
+@SymbolName("imported_intensity")
+external public fun intensity(): Double

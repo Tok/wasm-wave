@@ -12,7 +12,7 @@ class View(private val can: Canvas) : Layout(can.getBoundingClientRect()) {
 
     private fun drawWaves(i: Int) = with (Model) {
         context.beginPath()
-        val t = i * Wave.velocity
+        val t = i * velocity()
         val yRange = 0..(h - resolution)
         val xRange = 0..(w - resolution)
         for (y in yRange step resolution) {
@@ -25,7 +25,7 @@ class View(private val can: Canvas) : Layout(can.getBoundingClientRect()) {
     private fun drawPixel(x: Int, y: Int, t: Double) {
         val pos = Pos(x, y)
         val waves: List<Complex> = Model.particles.map {
-            WaveCalc.calc(pos, it.pos, t.toDouble())
+            WaveCalc.calc(pos, it.pos, t.toDouble(), frequency(), intensity())
         }
         val waveSum = waves.fold(Complex.ZERO) { sum, el -> sum + el }
         context.fillStyle = ColorUtil.getColor(waveSum)
@@ -53,9 +53,8 @@ class View(private val can: Canvas) : Layout(can.getBoundingClientRect()) {
         }
         with (Model) {
             print("FPS: ${calcFps()}", 10)
-            print("Particles: $particleCount", 20)
-            print("Pixels: $pixelCount", 30)
-            print("Tick: $tick", 40)
+            print("Pixels: $pixelCount", 20)
+            print("Tick: $tick", 30)
             //print(Model.currentTime(), 00)
         }
     }

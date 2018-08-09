@@ -3,21 +3,21 @@ import data.Particle
 import data.Pos
 
 object Model {
-    var isInitialized = false
+    val particles = mutableListOf<Particle>()
+    private var particleCount = particleCount()
+
+    var resolution = 20
+    var pixelCount = 0
+
+    private var w = 720
+    private var h = 720
+    private var center = Pos(w / 2, h / 2)
     fun push(t: Int) {
         if (particleCount > 0) {
             update(t)
             move()
         }
     }
-
-    val particles = mutableListOf<Particle>()
-    var w = 720
-    var h = 720
-    var center = Pos(w / 2, h / 2)
-    var resolution = 20
-    var particleCount = 0
-    var pixelCount = 0
 
     private fun calcResolution(w: Int, h: Int): Int {
         val averageSide = (w + h) / 2
@@ -34,6 +34,7 @@ object Model {
         }
     }
 
+    var isInitialized = false
     fun maybeInitialize(w: Int, h: Int) {
         fun randomPos() = Pos.random(rand(), rand(), w, h)
         if (!isInitialized) {
@@ -55,7 +56,7 @@ object Model {
         */
     }
 
-    fun move() = particles.forEach {
+    private fun move() = particles.forEach {
         it.move(rand(), rand(), rand(), w, h, center)
     }
 

@@ -14,20 +14,49 @@
     <div id="controls">
         <div id="particleCounts" class="radioGroup">
             <label>Particles</label><br />
-            <input id="pc8" type="radio" name="particleCount" value="8" /><label for="pc8">8</label><br />
-            <input id="pc5" type="radio" name="particleCount" value="5" /><label for="pc5">5</label><br />
-            <input id="pc3" type="radio" name="particleCount" value="3" checked="checked" /><label for="pc3">3</label><br />
-            <input id="pc2" type="radio" name="particleCount" value="2" /><label for="pc2">2</label><br />
-            <input id="pc1" type="radio" name="particleCount" value="1" /><label for="pc1">1</label><br />
+            <input type="radio" name="particleCount" value="8" /><label>8</label><br />
+            <input type="radio" name="particleCount" value="5" /><label>5</label><br />
+            <input type="radio" name="particleCount" value="3" checked="checked" /><label>3</label><br />
+            <input type="radio" name="particleCount" value="2" /><label>2</label><br />
+            <input type="radio" name="particleCount" value="1" /><label>1</label><br />
         </div>
         <div id="resolutions" class="radioGroup">
             <label>Resolution</label><br />
-            <input id="resHighest" type="radio" name="resolution" value="100" /><label for="resHighest">Highest</label><br />
-            <input id="resHigher" type="radio" name="resolution" value="80" /><label for="resHigher">Higher</label><br />
-            <input id="resHigh" type="radio" name="resolution" value="60" /><label for="resHigh">High</label><br />
-            <input id="resDefault" type="radio" name="resolution" value="40" checked="checked" /><label for="resDefault">Default</label><br />
-            <input id="resLow" type="radio" name="resolution" value="30" /><label for="resLow">Low</label><br />
-            <input id="resLower" type="radio" name="resolution" value="20" /><label for="resLower">Lower</label><br />
+            <input type="radio" name="resolution" value="200" /><label>200^2</label><br />
+            <input type="radio" name="resolution" value="120" /><label>120^2</label><br />
+            <input type="radio" name="resolution" value="80" /><label>80^2</label><br />
+            <input type="radio" name="resolution" value="50" /><label>50^2</label><br />
+            <input type="radio" name="resolution" value="40" /><label>40^2</label><br />
+            <input type="radio" name="resolution" value="30" checked="checked" /><label>30^2</label><br />
+            <input type="radio" name="resolution" value="20" /><label>20^2</label><br />
+        </div>
+        <div id="frequencies" class="radioGroup">
+            <label>Frequency</label><br />
+            <input type="radio" name="frequency" value="0.100" /><label>0.100</label><br />
+            <input type="radio" name="frequency" value="0.050" checked="checked" /><label>0.050</label><br />
+            <input type="radio" name="frequency" value="0.020" /><label>0.020</label><br />
+            <input type="radio" name="frequency" value="0.005" /><label>0.005</label><br />
+        </div>
+        <div id="velocities" class="radioGroup">
+            <label>Velocity</label><br />
+            <input type="radio" name="velocity" value="0.50" /><label>+0.50</label><br />
+            <input type="radio" name="velocity" value="0.20" /><label>+0.20</label><br />
+            <input type="radio" name="velocity" value="0.10" /><label>+0.10</label><br />
+            <input type="radio" name="velocity" value="0.05" /><label>+0.05</label><br />
+            <input type="radio" name="velocity" value="0.00" /><label>+0.00</label><br />
+            <input type="radio" name="velocity" value="-0.05" checked="checked" /><label>-0.05</label><br />
+            <input type="radio" name="velocity" value="-0.10" /><label>-0.10</label><br />
+            <input type="radio" name="velocity" value="-0.20" /><label>-0.20</label><br />
+            <input type="radio" name="velocity" value="-0.50" /><label>-0.50</label><br />
+        </div>
+        <div id="intensities" class="radioGroup">
+            <label>Intensity</label><br />
+            <input type="radio" name="intensity" value="5000.0" /><label>5000.0</label><br />
+            <input type="radio" name="intensity" value="1000.0" /><label>1000.0</label><br />
+            <input type="radio" name="intensity" value="500.0" /><label>500.0</label><br />
+            <input type="radio" name="intensity" value="200.0" checked="checked" /><label>200.0</label><br />
+            <input type="radio" name="intensity" value="100.0" /><label>100.0</label><br />
+            <input type="radio" name="intensity" value="20.0" /><label>20.0</label><br />
         </div>
     </div>
 </div>
@@ -54,6 +83,15 @@
     }});
     konan.libraries.push({ "imported_pixels_per_side" : function() {
         return document.querySelector('input[name="resolution"]:checked').value;
+    }});
+    konan.libraries.push({ "imported_frequency" : function() {
+        return document.querySelector('input[name="frequency"]:checked').value;
+    }});
+    konan.libraries.push({ "imported_velocity" : function() {
+        return document.querySelector('input[name="velocity"]:checked').value;
+    }});
+    konan.libraries.push({ "imported_intensity" : function() {
+        return document.querySelector('input[name="intensity"]:checked').value;
     }});
 
     konan.libraries.push({ "imported_hours" : function() {
