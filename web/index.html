@@ -9,7 +9,16 @@
     <title>WASM Wave</title>
 </head>
 <body>
-<canvas id="canvas"></canvas>
+<div id="container">
+    <canvas id="canvas"></canvas>
+    <div id="controls">
+        <button type="button" onclick="setParticleCount('1')">1</button>
+        <button type="button" onclick="setParticleCount('2')">2</button>
+        <button type="button" onclick="setParticleCount('3')">3</button>
+        <button type="button" onclick="setParticleCount('4')">4</button>
+        <button type="button" onclick="setParticleCount('5')">5</button>
+    </div>
+</div>
 <script wasm="wave.wasm" src="wave.wasm.js"></script>
 <script>
     function resetSize() {
@@ -27,6 +36,13 @@
     konan.libraries.push({ "imported_ms_since_start" : function() {
         return new Date().getTime() - startMs;
     }});
+
+    var particleCount = 2;
+    function setParticleCount(n) { particleCount = n; }
+    konan.libraries.push({ "imported_particle_count" : function() {
+        return particleCount;
+    }});
+
     konan.libraries.push({ "imported_hours" : function() {
         return new Date().getHours();
     }});

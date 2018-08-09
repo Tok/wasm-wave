@@ -34,7 +34,12 @@ object ColorUtil {
     }
 
     private fun col(i: Int): String {
-        val str = i.toString(16)
+        fun min(first: Int, second: Int): Int =
+                if (first < second) first else second
+        fun max(first: Int, second: Int): Int =
+                if (first > second) first else second
+        val clip = min(MAX_RGB, max(0, i))
+        val str = clip.toString(16)
         return if (str.length == 1) "0" + str else str
     }
 

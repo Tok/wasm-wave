@@ -15,3 +15,6 @@ external public fun seconds(): Int
 
 @SymbolName("imported_random")
 external public fun rand(): Double
+
+@SymbolName("imported_particle_count")
+external public fun particleCount(): Int

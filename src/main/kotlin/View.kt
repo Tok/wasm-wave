@@ -10,26 +10,17 @@ import util.WaveCalc
 class View(val can: Canvas) : Layout(can.getBoundingClientRect()) {
     val context = can.getContext("2d")
 
-    private fun print(text: String, topOffset: Int) = with(context) {
-        fillStyle = Style.fontColor
-        fillText(text, 2, topOffset, 100)
-    }
-
-    fun printTime(time: String) = print(time, 10)
-    fun printTick(tick: Int) = print("Tick: $tick", 20)
-    fun printFps(fps: Int) = print("FPS: $fps", 30)
-
     fun drawWaves(i: Int) {
         context.beginPath()
         val t = i * Wave.velocity
-        for (y in 0..Model.h step Style.resolution) {
-            for (x in 0..Model.w step Style.resolution) {
+        for (y in (0..(Model.h-Model.resolution)) step Model.resolution) {
+            for (x in (0..(Model.w-Model.resolution)) step Model.resolution) {
                 drawPixel(x, y, t)
             }
         }
     }
 
-    fun drawPos() {
+    fun drawParticles() {
         context.fillStyle = ColorUtil.WHITE
         val w = Style.particleW
         val r = Style.particleW / 2
@@ -44,9 +35,8 @@ class View(val can: Canvas) : Layout(can.getBoundingClientRect()) {
             WaveCalc.calc(pos, it.pos, t.toDouble())
         }
         val waveSum = waves.fold(Complex.ZERO) { sum, el -> sum + el }
-        val wave = Complex.valueOf(waveSum.magnitude / waves.count(), waveSum.phase)
-        context.fillStyle = ColorUtil.getColor(wave)
-        context.fillRect(x, y, Style.resolution, Style.resolution)
+        context.fillStyle = ColorUtil.getColor(waveSum)
+        context.fillRect(x, y, Model.resolution, Model.resolution)
     }
 
     fun clear() = with(context) {
@@ -54,14 +44,24 @@ class View(val can: Canvas) : Layout(can.getBoundingClientRect()) {
         fillRect(0, 0, w, h)
     }
 
+    private fun printTexts() {
+        fun print(text: String, topOffset: Int) = with(context) {
+            fillStyle = Style.fontColor
+            fillText(text, 2, topOffset, 100)
+        }
+        print("FPS: ${Model.calcFps()}", 10)
+        print("Particles: ${Model.particleCount}", 20)
+        print("Pixels: ${Model.pixelCount}", 30)
+        print("Tick: ${Model.tick}", 40)
+        //print(Model.currentTime(), 00)
+    }
+
     fun render() {
         Model.maybeInitialize(w, h)
 
-        //clear()
+        clear()
         drawWaves(Model.tick)
-        drawPos()
-        printTime(Model.currentTime())
-        printTick(Model.tick)
-        printFps(Model.calcFps())
+        drawParticles()
+        printTexts()
     }
 }

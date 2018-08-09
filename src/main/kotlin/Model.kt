@@ -13,6 +13,24 @@ object Model {
     var w = 720
     var h = 720
     var center = Pos(w / 2, h / 2)
+    var resolution = 20
+    var particleCount = 0
+    var pixelCount = 0
+
+    private fun calcResolution(w: Int, h: Int): Int {
+        val side = (w + h) / 2
+        return (side / Style.approxPixelsPerSide).toInt()
+    }
+
+    private fun removeOrAddPaticles(center: Pos) {
+        particleCount = particleCount()
+        if (particleCount > particles.size) {
+            particles.add(Particle(center))
+        }
+        if (particleCount < particles.size) {
+            particles.removeAt(0)
+        }
+    }
 
     fun maybeInitialize(w: Int, h: Int) {
         fun randomPos() = Pos.random(rand(), rand(), w, h)
@@ -20,11 +38,11 @@ object Model {
             this.w = w
             this.h = h
             this.center = Pos(w / 2, h / 2)
-            (1..Style.particleCount).forEach {
-                particles.add(Particle(center))
-            }
+            this.resolution = calcResolution(w, h)
+            this.pixelCount = (h / resolution).toInt() * (w / resolution).toInt()
             isInitialized = true
         }
+        removeOrAddPaticles(center)
         /* TODO replace location.reload();
         if (this.w != w || this.h != h) {
             this.w = w
