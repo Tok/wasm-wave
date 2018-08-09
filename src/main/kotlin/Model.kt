@@ -5,8 +5,10 @@ import data.Pos
 object Model {
     var isInitialized = false
     fun push(t: Int) {
-        update(t)
-        move()
+        if (particleCount > 0) {
+            update(t)
+            move()
+        }
     }
 
     val particles = mutableListOf<Particle>()
@@ -18,8 +20,8 @@ object Model {
     var pixelCount = 0
 
     private fun calcResolution(w: Int, h: Int): Int {
-        val side = (w + h) / 2
-        return (side / Style.approxPixelsPerSide).toInt()
+        val averageSide = (w + h) / 2
+        return (averageSide / pixelsPerSide()).toInt()
     }
 
     private fun removeOrAddPaticles(center: Pos) {
@@ -38,10 +40,10 @@ object Model {
             this.w = w
             this.h = h
             this.center = Pos(w / 2, h / 2)
-            this.resolution = calcResolution(w, h)
-            this.pixelCount = (h / resolution).toInt() * (w / resolution).toInt()
             isInitialized = true
         }
+        this.resolution = calcResolution(w, h)
+        this.pixelCount = (h / resolution).toInt() * (w / resolution).toInt()
         removeOrAddPaticles(center)
         /* TODO replace location.reload();
         if (this.w != w || this.h != h) {

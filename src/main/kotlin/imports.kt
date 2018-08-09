@@ -18,3 +18,6 @@ external public fun rand(): Double
 
 @SymbolName("imported_particle_count")
 external public fun particleCount(): Int
+
+@SymbolName("imported_pixels_per_side")
+external public fun pixelsPerSide(): Int

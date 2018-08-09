@@ -6,8 +6,18 @@ html, body {
     overflow: hidden;
 }
 
+label {
+    font-family: "Lucida Console", Monaco, monospace;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding-top: 2px;
+    padding-bottom: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 #container {
-  position: relative;
+    position: relative;
 }
 
 #canvas {
@@ -22,5 +32,8 @@ html, body {
     bottom: 0;
     left: 0;
     position: absolute;
-    padding: 8px;
+}
+
+.radioGroup {
+    padding: 5px;
 }

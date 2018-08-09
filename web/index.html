@@ -12,11 +12,23 @@
 <div id="container">
     <canvas id="canvas"></canvas>
     <div id="controls">
-        <button type="button" onclick="setParticleCount('1')">1</button>
-        <button type="button" onclick="setParticleCount('2')">2</button>
-        <button type="button" onclick="setParticleCount('3')">3</button>
-        <button type="button" onclick="setParticleCount('4')">4</button>
-        <button type="button" onclick="setParticleCount('5')">5</button>
+        <div id="particleCounts" class="radioGroup">
+            <label>Particles</label><br />
+            <input id="pc8" type="radio" name="particleCount" value="8" /><label for="pc8">8</label><br />
+            <input id="pc5" type="radio" name="particleCount" value="5" /><label for="pc5">5</label><br />
+            <input id="pc3" type="radio" name="particleCount" value="3" checked="checked" /><label for="pc3">3</label><br />
+            <input id="pc2" type="radio" name="particleCount" value="2" /><label for="pc2">2</label><br />
+            <input id="pc1" type="radio" name="particleCount" value="1" /><label for="pc1">1</label><br />
+        </div>
+        <div id="resolutions" class="radioGroup">
+            <label>Resolution</label><br />
+            <input id="resHighest" type="radio" name="resolution" value="100" /><label for="resHighest">Highest</label><br />
+            <input id="resHigher" type="radio" name="resolution" value="80" /><label for="resHigher">Higher</label><br />
+            <input id="resHigh" type="radio" name="resolution" value="60" /><label for="resHigh">High</label><br />
+            <input id="resDefault" type="radio" name="resolution" value="40" checked="checked" /><label for="resDefault">Default</label><br />
+            <input id="resLow" type="radio" name="resolution" value="30" /><label for="resLow">Low</label><br />
+            <input id="resLower" type="radio" name="resolution" value="20" /><label for="resLower">Lower</label><br />
+        </div>
     </div>
 </div>
 <script wasm="wave.wasm" src="wave.wasm.js"></script>
@@ -37,10 +49,11 @@
         return new Date().getTime() - startMs;
     }});
 
-    var particleCount = 2;
-    function setParticleCount(n) { particleCount = n; }
     konan.libraries.push({ "imported_particle_count" : function() {
-        return particleCount;
+        return document.querySelector('input[name="particleCount"]:checked').value;
+    }});
+    konan.libraries.push({ "imported_pixels_per_side" : function() {
+        return document.querySelector('input[name="resolution"]:checked').value;
     }});
 
     konan.libraries.push({ "imported_hours" : function() {
