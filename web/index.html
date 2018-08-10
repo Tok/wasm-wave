@@ -12,6 +12,11 @@
 <div id="container">
     <canvas id="canvas"></canvas>
     <div id="controls">
+        <div id="spectrums" class="radioGroup">
+            <label class="settingLabel">Colors</label>
+            <input id="spec1" type="radio" name="spectrum" value="0" checked="checked" /><label for="spec1">Full</label>
+            <input id="spec2" type="radio" name="spectrum" value="1" /><label for="spec2">B&W</label>
+        </div>
         <div id="particleCounts" class="radioGroup">
             <label class="settingLabel">Particles</label>
             <input id="part1" type="radio" name="particleCount" value="1" /><label for="part1">1</label>
@@ -95,6 +100,9 @@
     }});
     konan.libraries.push({ "imp_intensity" : function() {
         return checkedValue("intensity");
+    }});
+    konan.libraries.push({ "imp_spectrum" : function() {
+        return checkedValue("spectrum");
     }});
 
     konan.libraries.push({ "imp_hours" : function() {

@@ -1,3 +1,5 @@
+import data.Spectrum
+
 @SymbolName("imp_log_tick")
 external public fun logTick(tick: Int)
 
@@ -30,3 +32,7 @@ external public fun velocity(): Double
 
 @SymbolName("imp_intensity")
 external public fun intensity(): Double
+
+@SymbolName("imp_spectrum")
+external public fun spectrum_imp(): Int
+public fun spectrum() = Spectrum.fromInt(spectrum_imp())

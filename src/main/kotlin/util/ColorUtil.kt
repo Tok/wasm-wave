@@ -2,6 +2,8 @@ package util
 
 import config.Constants
 import data.Complex
+import data.RGB
+import data.Spectrum
 import util.MathUtil
 
 /*
@@ -19,16 +21,19 @@ object ColorUtil {
         else -> phase
     }
 
-    fun getColor(c: Complex): String = getColorFromMagAndPhase(c.magnitude.toDouble(), c.phase)
-    private fun getColorFromMagAndPhase(magnitude: Double, phase: Double): String {
+    fun getColor(spec: Spectrum, c: Complex): String =
+            getColorFromMagAndPhase(spec, c.magnitude.toDouble(), c.phase)
+
+    private fun getColorFromMagAndPhase(
+            spec: Spectrum, magnitude: Double, phase: Double): String {
         val p = normalizePhase(phase) * 6.0 / Constants.tau
         val range = MathUtil.min(5.0, MathUtil.max(0.0, p)).toInt()
         val fraction = p - range
-        val rgbValues = fullSpectrum(range, fraction)
+        val rgbValues = calcTriple(spec, range, fraction)
         val mag = magnitude * MAX_RGB.toInt()
-        val red = (rgbValues.first * mag).toInt()
-        val green = (rgbValues.second * mag).toInt()
-        val blue = (rgbValues.third * mag).toInt()
+        val red = (rgbValues.r * mag).toInt()
+        val green = (rgbValues.g * mag).toInt()
+        val blue = (rgbValues.b * mag).toInt()
         val color = "#" + col(red) + col(green) + col(blue)
         return color
     }
@@ -36,20 +41,32 @@ object ColorUtil {
     private fun col(i: Int): String {
         fun min(first: Int, second: Int): Int =
                 if (first < second) first else second
+
         fun max(first: Int, second: Int): Int =
                 if (first > second) first else second
+
         val clip = min(MAX_RGB, max(0, i))
         val str = clip.toString(16)
         return if (str.length == 1) "0" + str else str
     }
 
-    private fun fullSpectrum(range: Int, fraction: Double) = when (range) {
-        0 -> Triple(1.0, fraction, 0.0) //Red -> Yellow
-        1 -> Triple(1.0 - fraction, 1.0, 0.0) //Yellow -> Green
-        2 -> Triple(0.0, 1.0, fraction) //Green -> Cyan
-        3 -> Triple(0.0, 1.0 - fraction, 1.0) //Cyan -> Blue
-        4 -> Triple(fraction, 0.0, 1.0) //Blue -> Magenta
-        5 -> Triple(1.0, 0.0, 1.0 - fraction) //Magenta -> Red
+    private fun calcTriple(spec: Spectrum, range: Int, frac: Double): RGB = when {
+        spec == Spectrum.FULL -> fullSpectrum(range, frac)
+        else -> whiteLines(range, frac)
+    }
+
+    private fun whiteLines(range: Int, frac: Double): RGB = when (range) {
+        0, 2, 4 -> RGB(frac, frac, frac) //Black -> White
+        else -> RGB(1.0 - frac, 1.0 - frac, 1.0 - frac) //White -> Black
+    }
+
+    private fun fullSpectrum(range: Int, frac: Double): RGB = when (range) {
+        0 -> RGB(1.0, frac, 0.0) //Red -> Yellow
+        1 -> RGB(1.0 - frac, 1.0, 0.0) //Yellow -> Green
+        2 -> RGB(0.0, 1.0, frac) //Green -> Cyan
+        3 -> RGB(0.0, 1.0 - frac, 1.0) //Cyan -> Blue
+        4 -> RGB(frac, 0.0, 1.0) //Blue -> Magenta
+        5 -> RGB(1.0, 0.0, 1.0 - frac) //Magenta -> Red
         else -> throw IllegalArgumentException("Out of range: " + range)
     }
 }

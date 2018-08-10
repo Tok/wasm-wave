@@ -2,6 +2,7 @@ import config.Style
 import config.Wave
 import data.Complex
 import data.Pos
+import data.Spectrum
 import data.dom.Layout
 import kotlinx.interop.wasm.dom.Canvas
 import util.ColorUtil
@@ -31,7 +32,7 @@ class View(private val can: Canvas) : Layout(can.getBoundingClientRect()) {
             WaveCalc.calc(pos, it.pos, t.toDouble(), frequency(), intensity())
         }
         val waveSum = waves.fold(Complex.ZERO) { sum, el -> sum + el }
-        context.fillStyle = ColorUtil.getColor(waveSum)
+        context.fillStyle = ColorUtil.getColor(spectrum(), waveSum)
         val (xx, xRes) = when {
             x <= leftOffset -> (x - leftOffset) to (resolution + leftOffset) //first col
             x >= (w - (2 * resolution)) -> x to (resolution + leftOffset) //last col
