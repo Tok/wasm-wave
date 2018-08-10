@@ -1,32 +1,32 @@
-@SymbolName("imported_log_tick")
+@SymbolName("imp_log_tick")
 external public fun logTick(tick: Int)
 
-@SymbolName("imported_ms_since_start")
+@SymbolName("imp_ms_since_start")
 external public fun msSinceStart(): Int
 
-@SymbolName("imported_hours")
+@SymbolName("imp_hours")
 external public fun hours(): Int
 
-@SymbolName("imported_minutes")
+@SymbolName("imp_minutes")
 external public fun minutes(): Int
 
-@SymbolName("imported_seconds")
+@SymbolName("imp_seconds")
 external public fun seconds(): Int
 
-@SymbolName("imported_random")
+@SymbolName("imp_random")
 external public fun rand(): Double
 
-@SymbolName("imported_particle_count")
+@SymbolName("imp_particle_count")
 external public fun particleCount(): Int
 
-@SymbolName("imported_pixels_per_side")
+@SymbolName("imp_pixels_per_side")
 external public fun pixelsPerSide(): Int
 
-@SymbolName("imported_frequency")
+@SymbolName("imp_frequency")
 external public fun frequency(): Double
 
-@SymbolName("imported_velocity")
+@SymbolName("imp_velocity")
 external public fun velocity(): Double
 
-@SymbolName("imported_intensity")
+@SymbolName("imp_intensity")
 external public fun intensity(): Double
