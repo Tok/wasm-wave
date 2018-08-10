@@ -8,13 +8,13 @@ html, body {
 
 input { display: none; }
 input[type="radio"]:checked+label{
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 label {
     font-family: "Lucida Console", Monaco, monospace;
     font-weight: bold;
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(255, 255, 255, 0.3);
     padding-top: 2px;
     padding-bottom: 1px;
     padding-left: 5px;
@@ -23,7 +23,7 @@ label {
 }
 
 .settingLabel {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.5);
     display: inline-block;
     min-width: 100px;
 }
