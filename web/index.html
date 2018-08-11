@@ -35,9 +35,8 @@
             <input id="res30" type="radio" name="resolution" value="30" /><label for="res30">30</label>
             <input id="res40" type="radio" name="resolution" value="40" checked="checked" /><label for="res40">40</label>
             <input id="res50" type="radio" name="resolution" value="50" /><label for="res50">50</label>
-            <input id="res80" type="radio" name="resolution" value="80" /><label for="res80">80</label>
-            <input id="res120" type="radio" name="resolution" value="120" /><label for="res120">120</label>
-            <input id="res200" type="radio" name="resolution" value="200" /><label for="res200">200</label>
+            <input id="res70" type="radio" name="resolution" value="70" /><label for="res70">70</label>
+            <input id="res100" type="radio" name="resolution" value="100" /><label for="res100">100</label>
         </div>
         <div id="frequencies" class="radioGroup">
             <label class="settingLabel">Frequency</label>
@@ -49,14 +48,15 @@
         <div id="velocityDirections" class="radioGroup">
             <label class="settingLabel">Direction</label>
             <input id="veloPlus" type="radio" name="velocityDirection" value="-" checked="checked" /><label for="veloPlus">out</label>
+            <input id="veloNone" type="radio" name="velocityDirection" value="off" /><label for="veloNone">none</label>
             <input id="veloMinus" type="radio" name="velocityDirection" value="+" /><label for="veloMinus">in</label>
         </div>
         <div id="velocities" class="radioGroup">
             <label class="settingLabel">Velocity</label>
-            <input id="velo000" type="radio" name="velocity" value="0.00" /><label for="velo000">0</label>
-            <input id="velo005" type="radio" name="velocity" value="0.05" checked="checked" /><label for="velo005">5</label>
-            <input id="velo010" type="radio" name="velocity" value="0.10" /><label for="velo010">10</label>
-            <input id="velo030" type="radio" name="velocity" value="0.30" /><label for="velo030">50</label>
+            <input id="velo5" type="radio" name="velocity" value="0.05" /><label for="velo5">5</label>
+            <input id="velo10" type="radio" name="velocity" value="0.10" checked="checked" /><label for="velo10">10</label>
+            <input id="velo20" type="radio" name="velocity" value="0.20" /><label for="velo20">20</label>
+            <input id="velo40" type="radio" name="velocity" value="0.40" /><label for="velo40">40</label>
         </div>
         <div id="intensities" class="radioGroup">
             <label class="settingLabel">Intensity</label>
@@ -99,8 +99,12 @@
     }});
     konan.libraries.push({ "imp_velocity" : function() {
         const direction = checkedValue("velocityDirection");
-        const velocity = checkedValue("velocity");
-        return direction == "-" ? -velocity : velocity;
+        if (direction == "off") {
+            return 0;
+        } else {
+            const velocity = checkedValue("velocity");
+            return direction == "-" ? -velocity : velocity;
+        }
     }});
     konan.libraries.push({ "imp_intensity" : function() {
         return checkedValue("intensity");
