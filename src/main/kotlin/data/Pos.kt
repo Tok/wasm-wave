@@ -20,6 +20,7 @@ data class Pos(val x: Int, val y: Int) {
 
     companion object {
         val default = Pos(0, 0)
-        fun random(rand1: Double, rand2: Double, w: Int, h: Int): Pos = Pos((rand1 * w).toInt(), (rand2 * h).toInt())
+        fun random(rand1: Double, rand2: Double, w: Int, h: Int): Pos =
+                Pos((rand1 * w).toInt(), (rand2 * h).toInt())
     }
 }

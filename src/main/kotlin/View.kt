@@ -14,7 +14,7 @@ class View(private val can: Canvas) : Layout(can.getBoundingClientRect()) {
     private fun drawWaves(i: Int) = with(Model) {
         val topOffset = ((h % resolution) / 2).toInt()
         val leftOffset = ((w % resolution) / 2).toInt()
-        val t = i * velocity()
+        val t = i * velocity
         val yRange = topOffset..(h - resolution)
         val xRange = leftOffset..(w - resolution)
         context.beginPath()
@@ -29,10 +29,10 @@ class View(private val can: Canvas) : Layout(can.getBoundingClientRect()) {
                           topOffset: Int = 0, leftOffset: Int = 0) = with(Model) {
         val pos = Pos(x, y)
         val waves: List<Complex> = particles.map {
-            WaveCalc.calc(pos, it.pos, t.toDouble(), frequency(), intensity())
+            WaveCalc.calc(pos, it.pos, t.toDouble(), frequency, intensity)
         }
         val waveSum = waves.fold(Complex.ZERO) { sum, el -> sum + el }
-        context.fillStyle = ColorUtil.getColor(spectrum(), waveSum)
+        context.fillStyle = ColorUtil.getColor(spectrum, waveSum)
         val (xx, xRes) = when {
             x <= leftOffset -> (x - leftOffset) to (resolution + leftOffset) //first col
             x >= (w - (2 * resolution)) -> x to (resolution + leftOffset) //last col
