@@ -11,13 +11,18 @@ object WaveProps {
     var waveType: WaveType = JsImports.waveType()
     var particleCount = JsImports.particleCount()
     var pixelsPerSide = JsImports.pixelsPerSide()
-    fun update() {
-        intensity = JsImports.intensity()
-        frequency = JsImports.frequency()
-        velocity = JsImports.velocity()
-        spectrum = JsImports.spectrum()
-        waveType = JsImports.waveType()
-        particleCount = JsImports.particleCount()
-        pixelsPerSide = JsImports.pixelsPerSide()
+
+    var lastUpdate = 0
+    fun maybeUpdate(ts: Int) {
+        if (ts >= lastUpdate - 1000) {
+            intensity = JsImports.intensity()
+            frequency = JsImports.frequency()
+            velocity = JsImports.velocity()
+            spectrum = JsImports.spectrum()
+            waveType = JsImports.waveType()
+            particleCount = JsImports.particleCount()
+            pixelsPerSide = JsImports.pixelsPerSide()
+            lastUpdate = ts
+        }
     }
 }

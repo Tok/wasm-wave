@@ -18,9 +18,7 @@ object Model {
     private var center = Pos(w / 2, h / 2)
     fun push(t: Int) {
         if (WaveProps.particleCount > 0) {
-            if (t % 10 == 0) {
-                WaveProps.update()
-            }
+            WaveProps.maybeUpdate(ts)
             update(t)
             move()
         }
