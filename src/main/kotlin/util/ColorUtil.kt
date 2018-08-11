@@ -2,9 +2,10 @@ package util
 
 import config.Constants
 import data.Complex
-import data.RGB
 import data.Spectrum
 import util.MathUtil
+
+private typealias RGB = Triple<Double, Double, Double>
 
 /*
  * Recycled from https://github.com/Tok/Zir-Watchface/blob/master/Wearable/src/main/kotlin/zir/teq/wearable/watchface/util/ColorUtil.kt
@@ -14,6 +15,9 @@ object ColorUtil {
     val MAX_RGB = 0xFF
     val BLACK = "#000000"
     val WHITE = "#ffffff"
+    val RED = "#ff0000"
+    val GREEN = "#00ff00"
+    val BLUE = "#0000ff"
 
     private fun normalizePhase(phase: Double) = when {
         phase < 0.0 -> phase + Constants.tau
@@ -31,9 +35,9 @@ object ColorUtil {
         val fraction = p - range
         val rgbValues = calcTriple(spec, range, fraction)
         val mag = magnitude * MAX_RGB.toInt()
-        val red = (rgbValues.r * mag).toInt()
-        val green = (rgbValues.g * mag).toInt()
-        val blue = (rgbValues.b * mag).toInt()
+        val red = (rgbValues.first * mag).toInt()
+        val green = (rgbValues.second * mag).toInt()
+        val blue = (rgbValues.third * mag).toInt()
         val color = "#" + col(red) + col(green) + col(blue)
         return color
     }

@@ -4,6 +4,7 @@ import data.Complex
 import data.Pos
 import data.Spectrum
 import data.dom.Layout
+import interop.WaveProps
 import kotlinx.interop.wasm.dom.Canvas
 import util.ColorUtil
 import util.WaveCalc
@@ -14,7 +15,7 @@ class View(private val can: Canvas) : Layout(can.getBoundingClientRect()) {
     private fun drawWaves(i: Int) = with(Model) {
         val topOffset = ((h % resolution) / 2).toInt()
         val leftOffset = ((w % resolution) / 2).toInt()
-        val t = i * velocity
+        val t = i * WaveProps.velocity
         val yRange = topOffset..(h - resolution)
         val xRange = leftOffset..(w - resolution)
         context.beginPath()
@@ -29,10 +30,10 @@ class View(private val can: Canvas) : Layout(can.getBoundingClientRect()) {
                           topOffset: Int = 0, leftOffset: Int = 0) = with(Model) {
         val pos = Pos(x, y)
         val waves: List<Complex> = particles.map {
-            WaveCalc.calc(pos, it.pos, t.toDouble(), frequency, intensity)
+            WaveCalc.calc(pos, it.pos, t.toDouble(), WaveProps.frequency, WaveProps.intensity)
         }
         val waveSum = waves.fold(Complex.ZERO) { sum, el -> sum + el }
-        context.fillStyle = ColorUtil.getColor(spectrum, waveSum)
+        context.fillStyle = ColorUtil.getColor(WaveProps.spectrum, waveSum)
         val (xx, xRes) = when {
             x <= leftOffset -> (x - leftOffset) to (resolution + leftOffset) //first col
             x >= (w - (2 * resolution)) -> x to (resolution + leftOffset) //last col
@@ -47,7 +48,10 @@ class View(private val can: Canvas) : Layout(can.getBoundingClientRect()) {
     }
 
     private fun drawParticles() {
-        context.fillStyle = ColorUtil.WHITE
+        context.fillStyle = when {
+            WaveProps.spectrum == Spectrum.BW -> ColorUtil.RED
+            else -> ColorUtil.WHITE
+        }
         val w = Model.resolution
         val r = w / 2
         Model.particles.forEach {
@@ -69,7 +73,7 @@ class View(private val can: Canvas) : Layout(can.getBoundingClientRect()) {
             print("FPS: ${calcFps()}", 10)
             print("Pixels: $pixelCount", 20)
             print("Tick: $tick", 30)
-            //print(Model.currentTime(), 00)
+            //print(JsImports.currentTime(), 00)
         }
     }
 

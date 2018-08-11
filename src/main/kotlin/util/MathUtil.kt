@@ -2,11 +2,14 @@ package util
 
 import util.inaccurate.ShittyMath
 import util.inaccurate.ShittyTrig
+import interop.JsImports
 import kotlinx.interop.wasm.math.Math
 
 object MathUtil {
     val useImpreciseMath = true
     val useImpreciseTrig = true
+
+    fun random() = JsImports.rand()
 
     fun abs(n: Double): Double =
             if (n >= 0.0) n else -n
