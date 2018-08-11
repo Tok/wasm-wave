@@ -60,8 +60,11 @@ object ColorUtil {
     }
 
     private fun whiteLines(range: Int, frac: Double): RGB = when (range) {
-        0, 2, 4 -> RGB(frac, frac, frac) //Black -> White
-        else -> RGB(1.0 - frac, 1.0 - frac, 1.0 - frac) //White -> Black
+        0, 1 -> RGB(0.0, 0.0, 0.0) //Black
+        2 -> RGB(frac, frac, frac) //Black -> White
+        3, 4 -> RGB(1.0, 1.0, 1.0) //White
+        5 -> RGB(1.0 - frac, 1.0 - frac, 1.0 - frac) //White -> Black
+        else -> throw IllegalArgumentException("Out of range: " + range)
     }
 
     private fun fullSpectrum(range: Int, frac: Double): RGB = when (range) {
