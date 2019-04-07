@@ -61,5 +61,7 @@ data class Complex(val re: Double, val im: Double = 0.0) {
             val re = magnitude * MathUtil.sin(phase)
             return Complex(im, re)
         }
+        fun create(magnitude: Double, phase: Double) =
+                fromMagnitudeAndPhase(magnitude, phase)
     }
 }

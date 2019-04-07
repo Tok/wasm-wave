@@ -1,7 +1,6 @@
 package interop
 
 import data.Spectrum
-import data.WaveType
 
 object JsImports {
     @SymbolName("imp_log_tick")
@@ -28,10 +27,6 @@ object JsImports {
     @SymbolName("imp_spectrum")
     external private fun spectrum_impl(): Int
     public fun spectrum() = Spectrum.fromInt(spectrum_impl())
-
-    @SymbolName("imp_wave_type")
-    external private fun waveType_impl(): Int
-    public fun waveType() = WaveType.fromInt(waveType_impl())
 
     @SymbolName("imp_hours")
     external private fun hours(): Int

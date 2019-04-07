@@ -19,7 +19,7 @@ object ColorUtil {
     val GREEN = "#00ff00"
     val BLUE = "#0000ff"
 
-    private fun normalizePhase(phase: Double) = when {
+    fun normalizePhase(phase: Double) = when {
         phase < 0.0 -> phase + Constants.tau
         phase > Constants.tau -> phase - Constants.tau
         else -> phase

@@ -1,3 +1,4 @@
+import config.Constants
 import config.Style
 import config.Wave
 import data.Complex
@@ -79,7 +80,6 @@ class View(private val can: Canvas) : Layout(can.getBoundingClientRect()) {
 
     fun render() {
         Model.maybeInitialize(w, h)
-
         clear()
         drawWaves(Model.tick)
         drawParticles()

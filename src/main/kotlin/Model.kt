@@ -2,7 +2,6 @@ import config.Style
 import data.Particle
 import data.Pos
 import data.Spectrum
-import data.WaveType
 import interop.JsImports
 import interop.WaveProps
 import util.MathUtil
@@ -52,14 +51,6 @@ object Model {
         this.resolution = calcResolution(w, h)
         this.pixelCount = (h / resolution).toInt() * (w / resolution).toInt()
         removeOrAddPaticles(center)
-        /* TODO replace location.reload();
-        if (this.w != w || this.h != h) {
-            this.w = w
-            this.h = h
-            this.center = Pos(w / 2, h / 2)
-            println("Size changed...")
-        }
-        */
     }
 
     private fun move() = particles.forEach {
